@@ -26,7 +26,7 @@ def before_request():
         abort(503)
     if request.remote_addr in BANNED_IP:
         abort(403)
-    STATS.update(STATS["Requests"] + 1)
+    STATS.update({"Requests" : STATS["Requests"] + 1})
 
 
 @app.route("/")
@@ -65,7 +65,7 @@ def css_profile():
 #=================error templates
 
 @app.errorhandler(503)
-def e503():
+def e503(e):
     return render_template("503.html")
 
 
