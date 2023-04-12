@@ -35,7 +35,7 @@ class Console:
     def command(self, cmd):
         if CMD_CHECK.fullmatch(cmd):
             self.send(cmd)
-            if cmd == "exit":
+            if cmd in ["exit", "leave"]:
                 exit(0)
             return self.report(self.recv())
 
