@@ -1,6 +1,19 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, request, abort
+import socket, threading, os, _thread
 
-app = Flask(__name__, template_folder="D:\\code\\project\\templates\\", static_folder="D:\\code\\project\\static\\")
+app = Flask(__name__, template_folder=r"C:\Users\unknown\Documents\code\code\project\templates", static_folder=r"C:\Users\unknown\Documents\code\code\project\static")
+
+debugC = os.getcwd() + "\\project\\debug.py"
+
+BANNED_IP = []
+
+@app.before_request
+def before_request():
+    if not RUNNING:
+        abort(503)
+    if request.remote_addr in BANNED_IP:
+        abort(403)
+
 
 @app.route("/")
 def index():
@@ -34,5 +47,93 @@ def css_login():
 def css_profile():
     return send_file("static\\css\\profile.css")
 
+
+#=================error templates
+
+@app.errorhandler(503)
+def e503():
+    return render_template("503.html")
+
+
+#================debug console
+
+MAX_SIZE = 1024
+ENCODING = "utf-8"
+RUNNING = True
+
+class Server:
+
+    def __init__(self, host="127.0.0.1", port=3333, ConsoleAutoStart=True):
+        self.host = host
+        self.port = port
+        self.sobj = socket.socket()
+        self.CAS = ConsoleAutoStart
+        
+    def start(self):
+        self.sobj.bind((self.host, self.port))
+        self.sobj.listen()
+
+        try:
+            while True:
+                conn, addr = self.sobj.accept()
+                try:
+                    while True:
+                        cmd = self.recv(conn)
+                        ret = self.do(cmd)
+                        self.send(conn, ret)
+                except Exception as e: 
+                    print("Connection lost")
+                    print(e)
+                    self.sobj.close()
+                    exit(0)
+        except Exception as e:
+            print(e)
+            self.sobj.close()
+            exit(0)
+    
+    def send(self, conn, data):
+        conn.send(data.encode(ENCODING))
+    
+    def recv(self, conn):
+        return conn.recv(MAX_SIZE).decode(ENCODING)
+
+    def do(self, cmd):
+        global RUNNING
+
+        if cmd == "stop":
+            if RUNNING == False:
+                return "already stopped"
+            RUNNING = False
+            return "stopped"
+        elif cmd == "continue":
+            if RUNNING == True:
+                return "alreday running"
+            RUNNING = True
+            return "continued"
+        elif cmd == "exit":
+            _thread.interrupt_main()
+            exit(0)
+        
+        elif cmd[:3] == "ban":
+            if cmd[4:] not in BANNED_IP:
+                BANNED_IP.append(cmd[4:])
+                return f"now, {cmd[4:]} is banned "
+            return f"{cmd[4:]} is already banned"
+        
+        elif cmd[:5] == "unban":
+            if cmd[6:] in BANNED_IP:
+                BANNED_IP.remove(cmd[6:])
+                return f"now, {cmd[6:]} is unbanned"
+            else:
+                return f"{cmd[6:]} is not banned"
+        elif cmd == "BANNED_IP":
+            return "|".join(BANNED_IP) if BANNED_IP != [] else "There is no banned ips here"
+        else:
+            return "no such command as " + cmd
+
+
 if __name__ == "__main__":
+    server = Server()
+    Tserver = threading.Thread(target=server.start)
+    Tserver.start()
     app.run(host="127.0.0.1", port=80)
