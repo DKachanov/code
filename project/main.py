@@ -68,7 +68,7 @@ def css_profile():
 def e503(e):
     return render_template("503.html")
 
-
+'''
 #================remote console
 
 class Server:
@@ -150,9 +150,10 @@ class Server:
     Running:   {STATS['Running']}"""
         else:
             return "no such command as " + cmd
-
+'''
 
 if __name__ == "__main__":
+    '''
     server = Server()
     Tserver = threading.Thread(target=server.start)
     Tserver.start()
@@ -160,3 +161,6 @@ if __name__ == "__main__":
         app.run(host="127.0.0.1", port=80)
     except KeyboardInterrupt:
         print("Stopped by remote console")
+    '''
+
+    app.run(host="127.0.0.1", port=80)
