@@ -8,8 +8,19 @@
 
 body {
     background-color: rgb(195, 255, 255);
+    margin: 0;
 }
 
 .post {
     padding-top: 15px;
+}
+
+footer {
+    margin-top: 150px;
+    width: 100%;
+    background-color: white;
+}
+
+footer ul {
+    padding-right: .75rem;
 }

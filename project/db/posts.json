@@ -1,0 +1,27 @@
+{
+    "posts" : [
+        {
+            "user_icon" : "https://yt3.ggpht.com/ytc/AGIKgqObajSuwPLD5hv9cLcJJ7ltaqE1GwBcQsEv6IWQ-w=s68-c-k-c0x00ffffff-no-rj",
+            "username" : "GothamChess",
+            "text" : "4 !! moves in one game!",
+            "embed_video" : "https://www.youtube.com/embed/1WP3bjRswBQ",
+            "time" : "2023/04/14 18:00"
+        },
+
+        {
+            "user_icon" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwtpgtnG5Cpz1YED7euVoVL5NcnuxebO7LvCQArmByBA&s",
+            "username" : "OIvep23",
+            "text" : "New backrooms video",
+            "embed_video" : "https://www.youtube.com/embed/H4dGpz6cnHo",
+            "time" : "2023/04/14 18:00"
+        },
+
+        {
+            "user-icon" : "https://yt3.ggpht.com/Yekc-VYH1l8YLSAB9r15zYXTEvjiNqYSLQ3NXY0xQdxDwPqtKXzHSokZ7CUSPyaftpFVJEdg=s68-c-k-c0x00ffffff-no-rj",
+            "username" : "Хауди Хо™ - Просто о мире IT!",
+            "text" : "Всем привет! В новом видео сделал джарвиса, если интересно заходите)",
+            "embed_video" : "https://www.youtube.com/embed/pTDTIkLRQKQ",
+            "time" : "2023/04/14 18:00"
+         }
+    ]
+}

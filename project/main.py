@@ -1,10 +1,13 @@
 from flask import Flask, render_template, send_file, request, abort
 from datetime import datetime
 import socket, threading, os, _thread
+from json import load
 
 app = Flask(__name__, template_folder=r"C:\Users\unknown\Documents\code\code\project\templates", static_folder=r"C:\Users\unknown\Documents\code\code\project\static")
 
 BANNED_IP = []
+
+db = load(open(r"C:\Users\unknown\Documents\code\code\project\db\posts.json", encoding="utf-8"))
 
 #for remote console
 MAX_SIZE = 1024
@@ -31,7 +34,7 @@ def before_request():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", db=db)
 
 @app.route("/login")
 def login():
@@ -68,9 +71,9 @@ def css_profile():
 def e503(e):
     return render_template("503.html")
 
-'''
-#================remote console
 
+#================remote console
+'''
 class Server:
 
     def __init__(self, host="127.0.0.1", port=3333, ConsoleAutoStart=True):
@@ -120,7 +123,7 @@ class Server:
             return "stopped"
         elif cmd == "continue":
             if RUNNING == True:
-                return "alreday running"
+                return "already running"
             RUNNING = True
             return "continued"
         elif cmd == "exit":
@@ -150,8 +153,8 @@ class Server:
     Running:   {STATS['Running']}"""
         else:
             return "no such command as " + cmd
-'''
 
+'''
 if __name__ == "__main__":
     '''
     server = Server()

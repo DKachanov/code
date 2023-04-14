@@ -62,33 +62,39 @@
     <div class="container">
         <div class="posts">
 
+            {% for post in db["posts"] %}
             <div class="post">
                 <div class="card">
                     <div class="card-body">
-                        <img src="https://yt3.ggpht.com/ytc/AGIKgqObajSuwPLD5hv9cLcJJ7ltaqE1GwBcQsEv6IWQ-w=s68-c-k-c0x00ffffff-no-rj"
-                            width="30px">
-                        <h5 class="card-title">GothamChess</h5>
-                        <p class="card-text">4 !! moves in one game!</p>
-                        <p class="card-text"><small class="text-body-secondary">Posted 3 mins ago</small></p>
+                        <img src="{{ post.user_icon }}" width="30px">
+                        <h5 class="card-title">{{ post.username }}</h5>
+                        <p class="card-text">{{ post.text }}</p>
+                        <p class="card-text"><small class="text-body-secondary">{{ post.time }}</small></p>
                     </div>
-                    <iframe width="270px" src="https://www.youtube.com/embed/1WP3bjRswBQ" allow="fullscreen"></iframe>
+                    {% if post.embed_video %}
+                    <iframe width="270px" src="{{ post.embed_video }}" allow="fullscreen"></iframe>
+                    {% else %}
+                    {% endif %}
                 </div>
             </div>
-
-            <div class="post">
-                <div class="card">
-                    <div class="card-body">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwtpgtnG5Cpz1YED7euVoVL5NcnuxebO7LvCQArmByBA&s"
-                            width="30px">
-                        <h5 class="card-title">OIvep23</h5>
-                        <p class="card-text">New backrooms video</p>
-                        <p class="card-text"><small class="text-body-secondary">posted 1 hour ago</small></p>
-                    </div>
-                    <iframe width="270px" src="https://www.youtube.com/embed/H4dGpz6cnHo" allow="fullscreen"></iframe>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
+
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+              <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+              </a>
+              <span class="mb-3 mb-md-0 text-muted">© 2022 MyProject.com</span>
+            </div>
+        
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              <li class="ms-3"><a class="text-muted" href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9HHoxKGjkdH2M3Bvr-UW42btCc_XWEtBbmQ&usqp=CAU" width="24px" height="24px"></a></li>
+              <li class="ms-3"><a class="text-muted" href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN2GOQCEzqE8hu5vVVV3hpDfylWHqwy9kbRg&usqp=CAU" width="24px", height="24px"></a></li>
+              <li class="ms-3"><a class="text-muted" href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNzsEcWajuoDhyS42pVBsuHBe5CGFmjwBNAg&usqp=CAU" width="24px", height="24px"></a></li>
+            </ul>
+          </footer>
     </div>
 </body>
 
