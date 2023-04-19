@@ -3,11 +3,11 @@ from datetime import datetime
 import socket, threading, os, _thread
 from json import load
 
-app = Flask(__name__, template_folder=r"C:\Users\unknown\Documents\code\code\project\templates", static_folder=r"C:\Users\unknown\Documents\code\code\project\static")
+app = Flask(__name__, template_folder="/Users/mac/Desktop/nedilia_10/Denis/code/project/templates", static_folder="/Users/mac/Desktop/nedilia_10/Denis/code/project/static")
 
 BANNED_IP = []
 
-db = load(open(r"C:\Users\unknown\Documents\code\code\project\db\posts.json", encoding="utf-8"))
+db = load(open("/Users/mac/Desktop/nedilia_10/Denis/code/project/db/posts.json", encoding="utf-8"))
 
 #for remote console
 MAX_SIZE = 1024
@@ -73,10 +73,10 @@ def e503(e):
 
 
 #================remote console
-'''
+
 class Server:
 
-    def __init__(self, host="127.0.0.1", port=3333, ConsoleAutoStart=True):
+    def __init__(self, host="127.0.0.1", port=8000, ConsoleAutoStart=True):
         self.host = host
         self.port = port
         self.sobj = socket.socket()
@@ -154,16 +154,13 @@ class Server:
         else:
             return "no such command as " + cmd
 
-'''
 if __name__ == "__main__":
-    '''
     server = Server()
     Tserver = threading.Thread(target=server.start)
     Tserver.start()
     try:
-        app.run(host="127.0.0.1", port=80)
+        app.run()
     except KeyboardInterrupt:
         print("Stopped by remote console")
-    '''
 
-    app.run(host="127.0.0.1", port=80)
+    app.run()
